@@ -1,0 +1,14 @@
+:host {
+  display: block;
+}
+
+.auth-pattern {
+  background-image: url('/assets/images/auth-pattern.svg');
+  background-repeat: repeat;
+  opacity: 0.1;
+  transition: opacity 0.3s ease;
+
+  &:hover {
+    opacity: 0.15;
+  }
+}

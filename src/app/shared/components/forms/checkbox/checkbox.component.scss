@@ -1,0 +1,57 @@
+.checkbox-wrapper {
+  @apply flex flex-col gap-1.5;
+}
+
+.checkbox-label {
+  @apply flex items-start cursor-pointer;
+
+  &.disabled {
+    @apply cursor-not-allowed opacity-60;
+  }
+}
+
+.checkbox-container {
+  @apply relative flex items-start;
+
+  &.has-error {
+    .checkbox-control {
+      @apply border-red-500;
+    }
+  }
+}
+
+.checkbox-input {
+  @apply sr-only;
+
+  &:focus + .checkbox-control {
+    @apply ring-2 ring-offset-2 ring-primary-500;
+  }
+
+  &:checked + .checkbox-control {
+    @apply bg-primary-600 border-primary-600;
+  }
+}
+
+.checkbox-control {
+  @apply flex items-center justify-center w-5 h-5 border-2 border-gray-300 rounded 
+    transition-colors duration-200;
+}
+
+.checkbox-icon {
+  @apply text-white;
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+}
+
+.checkbox-text {
+  @apply ml-3 text-sm text-gray-700;
+}
+
+.checkbox-error {
+  @apply text-sm text-red-600;
+}
+
+.checkbox-hint {
+  @apply text-sm text-gray-500;
+} 

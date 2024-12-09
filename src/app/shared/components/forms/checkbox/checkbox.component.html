@@ -1,0 +1,34 @@
+<div class="checkbox-wrapper">
+  <label class="checkbox-label" [class.disabled]="disabled">
+    <div class="checkbox-container" [class.has-error]="error">
+      <input
+        type="checkbox"
+        class="checkbox-input"
+        [checked]="checked"
+        [disabled]="disabled"
+        [required]="required"
+        (change)="onToggle()"
+        (blur)="markAsTouched()"
+      />
+      <div class="checkbox-control">
+        @if (checked) {
+          <mat-icon class="checkbox-icon">check</mat-icon>
+        }
+      </div>
+      <span class="checkbox-text">
+        {{ label }}
+        @if (required) {
+          <span class="text-red-500">*</span>
+        }
+      </span>
+    </div>
+  </label>
+
+  @if (error) {
+    <p class="checkbox-error">{{ error }}</p>
+  }
+
+  @if (hint && !error) {
+    <p class="checkbox-hint">{{ hint }}</p>
+  }
+</div> 

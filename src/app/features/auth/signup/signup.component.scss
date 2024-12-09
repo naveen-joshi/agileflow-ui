@@ -1,0 +1,17 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background-color: rgb(var(--bg-primary));
+}
+
+form {
+  @apply mt-8;
+}
+
+.form-footer {
+  @apply mt-6 text-center text-sm;
+  
+  a {
+    @apply font-medium text-primary-600 hover:text-primary-500;
+  }
+} 

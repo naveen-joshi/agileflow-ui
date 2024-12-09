@@ -1,0 +1,210 @@
+// Animation Mixins
+@mixin animate($name, $duration: var(--duration-normal), $timing: var(--ease-smooth)) {
+  animation: $name $duration $timing;
+}
+
+// Keyframe Animations
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+  70% {
+    transform: scale(0.9);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+// New Keyframe Animations
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(var(--color-primary), 0.4); }
+  50% { box-shadow: 0 0 20px 0 rgba(var(--color-primary), 0.6); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes typewriter {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+// Animation Classes
+.animate {
+  &-fade { @include animate(fadeIn); }
+  &-slide-up { @include animate(slideInUp); }
+  &-slide-left { @include animate(slideInLeft); }
+  &-scale { @include animate(scaleIn, var(--duration-normal), var(--ease-spring)); }
+  &-bounce { @include animate(bounceIn, var(--duration-slow), var(--ease-bounce)); }
+  &-pulse { @include animate(pulseGlow, 2s, ease-in-out infinite); }
+  &-float { @include animate(float, 3s, ease-in-out infinite); }
+  &-shimmer { 
+    background: linear-gradient(90deg, 
+      rgba(var(--bg-secondary), 0) 0%, 
+      rgba(var(--bg-secondary), 0.5) 50%, 
+      rgba(var(--bg-secondary), 0) 100%
+    );
+    background-size: 200% 100%;
+    @include animate(shimmer, 1.5s, linear infinite);
+  }
+  &-typewriter {
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 2px solid;
+    width: 0;
+    @include animate(typewriter, 2s, steps(40, end) forwards);
+  }
+}
+
+// Hover Effects
+.hover-effects {
+  &-lift {
+    transition: var(--transition-bounce);
+    &:hover { transform: translateY(-4px); }
+  }
+  
+  &-scale {
+    transition: var(--transition-scale);
+    &:hover { transform: scale(1.05); }
+  }
+  
+  &-glow {
+    transition: var(--transition-base);
+    &:hover { box-shadow: 0 0 20px rgba(var(--color-primary), 0.4); }
+  }
+}
+
+// Page Transitions
+@keyframes pageSlideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pageSlideOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+@keyframes pageFadeScale {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+// Route Animation Classes
+.page {
+  &-enter {
+    @include animate(pageFadeScale, var(--duration-normal), var(--ease-smooth));
+    
+    &-slide {
+      @include animate(pageSlideIn, var(--duration-normal), var(--ease-smooth));
+    }
+  }
+  
+  &-exit {
+    position: absolute;
+    width: 100%;
+    @include animate(pageSlideOut, var(--duration-normal), var(--ease-smooth));
+  }
+}
+
+// Stagger Animations for Lists
+.stagger-list {
+  > * {
+    opacity: 0;
+    animation: slideInUp var(--duration-normal) var(--ease-smooth) forwards;
+    
+    @for $i from 1 through 20 {
+      &:nth-child(#{$i}) {
+        animation-delay: #{$i * 50}ms;
+      }
+    }
+  }
+}
+
+// Advanced Loading Animations
+@keyframes progressBar {
+  0% { transform: scaleX(0); }
+  50% { transform: scaleX(0.5); }
+  100% { transform: scaleX(1); }
+}
+
+.loading-bar {
+  height: 2px;
+  background: linear-gradient(90deg, 
+    rgb(var(--color-primary)), 
+    rgb(var(--color-secondary))
+  );
+  transform-origin: left;
+  @include animate(progressBar, 2s, var(--ease-smooth));
+} 

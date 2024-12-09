@@ -1,0 +1,69 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@import '@ng-select/ng-select/themes/default.theme.css';
+@import './app/shared/styles/ng-select';
+@import 'styles/variables';
+@import 'styles/animations';
+
+// Global utility classes
+.text-gradient {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bg-gradient {
+  background: var(--gradient-primary);
+}
+
+// Theme-aware classes
+.bg-primary { background: rgb(var(--bg-primary)); }
+.bg-secondary { background: rgb(var(--bg-secondary)); }
+.text-primary { color: rgb(var(--text-primary)); }
+.text-secondary { color: rgb(var(--text-secondary)); }
+
+// Animation utilities
+.delay {
+  &-100 { animation-delay: 100ms; }
+  &-200 { animation-delay: 200ms; }
+  &-300 { animation-delay: 300ms; }
+  &-500 { animation-delay: 500ms; }
+}
+
+.stagger-children {
+  > * {
+    @for $i from 1 through 10 {
+      &:nth-child(#{$i}) {
+        animation-delay: #{$i * 50}ms;
+      }
+    }
+  }
+}
+
+// Custom utility classes
+.flex-center {
+  @apply flex items-center justify-center;
+}
+
+// Material Design overrides
+.mat-mdc-button-base {
+  height: 40px !important;
+  
+  .mdc-button__label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}
+
+.mat-mdc-form-field {
+  width: 100%;
+}
+
+// Dialog styles
+.ngneat-dialog-content {
+  border-radius: 0.5rem;
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+}

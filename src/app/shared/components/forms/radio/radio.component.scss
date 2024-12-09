@@ -1,0 +1,66 @@
+.radio-wrapper {
+  @apply flex flex-col gap-1.5;
+}
+
+.radio-group-label {
+  @apply text-sm font-medium text-gray-700;
+}
+
+.radio-group {
+  @apply flex flex-col gap-3;
+
+  &.radio-group-inline {
+    @apply flex-row gap-6;
+  }
+
+  &.has-error {
+    .radio-control {
+      @apply border-red-500;
+    }
+  }
+}
+
+.radio-label {
+  @apply flex items-center cursor-pointer;
+
+  &.disabled {
+    @apply cursor-not-allowed opacity-60;
+  }
+}
+
+.radio-input {
+  @apply sr-only;
+
+  &:focus + .radio-control {
+    @apply ring-2 ring-offset-2 ring-primary-500;
+  }
+
+  &:checked + .radio-control {
+    @apply border-primary-600;
+
+    .radio-dot {
+      @apply scale-100 bg-primary-600;
+    }
+  }
+}
+
+.radio-control {
+  @apply relative flex items-center justify-center w-5 h-5 border-2 border-gray-300 rounded-full
+    transition-colors duration-200;
+}
+
+.radio-dot {
+  @apply w-2.5 h-2.5 rounded-full transform scale-0 transition-transform duration-200;
+}
+
+.radio-text {
+  @apply ml-3 text-sm text-gray-700;
+}
+
+.radio-error {
+  @apply text-sm text-red-600;
+}
+
+.radio-hint {
+  @apply text-sm text-gray-500;
+} 

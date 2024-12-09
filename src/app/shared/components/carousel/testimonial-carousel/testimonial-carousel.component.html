@@ -1,0 +1,55 @@
+<div class="carousel">
+  <div class="carousel-content">
+    <!-- Previous Button -->
+    <button
+      class="carousel-button carousel-button-prev"
+      (click)="previous()"
+      aria-label="Previous testimonial"
+    >
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+
+    <!-- Testimonials -->
+    <div class="testimonials-container">
+      @for (testimonial of testimonials; track testimonial.author; let i = $index) {
+        @if (currentIndex() === i) {
+          <div class="testimonial" [@slideAnimation]>
+            <img
+              [src]="testimonial.avatar"
+              [alt]="testimonial.author"
+              class="testimonial-avatar"
+            />
+            <blockquote class="testimonial-quote">
+              "{{ testimonial.quote }}"
+            </blockquote>
+            <cite class="testimonial-author">
+              <div class="author-name">{{ testimonial.author }}</div>
+              <div class="author-role">{{ testimonial.role }}</div>
+            </cite>
+          </div>
+        }
+      }
+    </div>
+
+    <!-- Next Button -->
+    <button
+      class="carousel-button carousel-button-next"
+      (click)="next()"
+      aria-label="Next testimonial"
+    >
+      <mat-icon>chevron_right</mat-icon>
+    </button>
+  </div>
+
+  <!-- Dots -->
+  <div class="carousel-dots">
+    @for (dot of testimonials; track dot; let i = $index) {
+      <button
+        class="carousel-dot"
+        [class.active]="i === currentIndex()"
+        (click)="currentIndex.set(i)"
+        [attr.aria-label]="'Go to testimonial ' + (i + 1)"
+      ></button>
+    }
+  </div>
+</div> 

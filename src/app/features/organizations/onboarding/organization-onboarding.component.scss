@@ -1,0 +1,37 @@
+:host {
+  display: block;
+}
+
+::ng-deep {
+  .mat-step-header {
+    @apply py-4 px-6;
+
+    .mat-step-icon {
+      @apply bg-primary-600;
+
+      &-selected {
+        @apply bg-primary-600;
+      }
+
+      &-completed {
+        @apply bg-primary-600;
+      }
+    }
+
+    .mat-step-label {
+      @apply text-gray-600;
+
+      &-selected {
+        @apply text-gray-900 font-medium;
+      }
+    }
+  }
+
+  .mat-horizontal-stepper-header-container {
+    @apply border-b border-gray-200;
+  }
+
+  .mat-horizontal-content-container {
+    @apply p-0;
+  }
+}

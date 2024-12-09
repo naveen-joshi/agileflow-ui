@@ -1,0 +1,84 @@
+<div class="dashboard">
+  <!-- Metrics Section -->
+  <section class="metrics-grid">
+    @for (metric of metrics(); track metric.label) {
+      <app-metric-card
+        [label]="metric.label"
+        [value]="metric.value"
+        [change]="metric.change"
+        [icon]="metric.icon"
+      />
+    }
+  </section>
+
+  <!-- Charts Section -->
+  <section class="charts-grid">
+    <mat-card class="chart-card">
+      <mat-card-header>
+        <mat-card-title>Team Velocity</mat-card-title>
+        <mat-card-subtitle>Story points completed per week</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <!-- <app-line-chart
+          [data]="teamVelocityData()"
+          [height]="300"
+        /> -->
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="chart-card">
+      <mat-card-header>
+        <mat-card-title>Task Completion</mat-card-title>
+        <mat-card-subtitle>Tasks completed per day</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <app-bar-chart
+          [data]="taskCompletionData()"
+          [height]="300"
+        />
+      </mat-card-content>
+    </mat-card>
+  </section>
+
+  <!-- Projects Section -->
+  <section class="projects-section">
+    <div class="section-header">
+      <h2>Active Projects</h2>
+      <button mat-button color="primary" routerLink="/projects">
+        View All
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+    </div>
+    <div class="projects-grid">
+      @for (project of projects(); track project.id) {
+        <app-project-card
+          [name]="project.name"
+          [progress]="project.progress"
+          [status]="project.status"
+          [progressColor]="getProgressColor(project.status)"
+        />
+      }
+    </div>
+  </section>
+
+  <!-- Team Section -->
+  <section class="team-section">
+    <div class="section-header">
+      <h2>Team Members</h2>
+      <button mat-button color="primary" routerLink="/team">
+        View All
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+    </div>
+    <div class="team-grid">
+      @for (member of teamMembers(); track member.id) {
+        <app-team-member-card
+          [name]="member.name"
+          [role]="member.role"
+          [avatar]="member.avatar"
+          [tasksCompleted]="member.tasksCompleted"
+        />
+      }
+    </div>
+  </section>
+</div> 

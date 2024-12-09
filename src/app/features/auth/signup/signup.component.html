@@ -1,0 +1,58 @@
+<app-form-wrapper
+  title="Create your account"
+  subtitle="Start your journey with AgileFlow"
+>
+  <app-social-auth dividerText="Or sign up with email" />
+
+  <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+    <div class="space-y-4">
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <app-input
+          label="First name"
+          formControlName="firstName"
+          [required]="true"
+        />
+        <app-input
+          label="Last name"
+          formControlName="lastName"
+          [required]="true"
+        />
+      </div>
+
+      <app-input
+        type="email"
+        label="Email address"
+        formControlName="email"
+        [required]="true"
+      />
+
+      <app-input
+        type="password"
+        label="Password"
+        formControlName="password"
+        [required]="true"
+      />
+
+      <app-checkbox
+        label="I agree to the Terms of Service and Privacy Policy"
+        formControlName="terms"
+      />
+    </div>
+
+    <div class="mt-6">
+      <app-button
+        type="submit"
+        variant="primary"
+        [loading]="isLoading"
+        [disabled]="!signupForm.valid || isLoading"
+      >
+        Create account
+      </app-button>
+    </div>
+  </form>
+
+  <div class="mt-4 text-center">
+    <span class="text-gray-600">Already have an account? </span>
+    <app-link to="/auth/login" variant="primary">Sign in</app-link>
+  </div>
+</app-form-wrapper> 

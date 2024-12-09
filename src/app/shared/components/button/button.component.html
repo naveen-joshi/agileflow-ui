@@ -1,0 +1,29 @@
+<button
+  [type]="type"
+  [class]="[
+    'button',
+    'button-' + variant,
+    'button-' + size,
+    fullWidth ? 'w-full' : ''
+  ]"
+  [disabled]="disabled || loading"
+>
+  @if (loading) {
+    <mat-spinner
+      [diameter]="size === 'sm' ? 16 : 20"
+      class="button-spinner"
+    />
+  }
+
+  @if (icon && iconPosition === 'left' && !loading) {
+    <mat-icon class="button-icon">{{ icon }}</mat-icon>
+  }
+
+  <span class="button-content">
+    <ng-content />
+  </span>
+
+  @if (icon && iconPosition === 'right' && !loading) {
+    <mat-icon class="button-icon">{{ icon }}</mat-icon>
+  }
+</button> 

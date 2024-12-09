@@ -1,0 +1,59 @@
+.carousel {
+  @apply relative overflow-hidden;
+}
+
+.carousel-content {
+  @apply flex items-center;
+}
+
+.carousel-button {
+  @apply absolute z-10 p-2 text-gray-600 hover:text-gray-900 transition-colors;
+
+  &-prev {
+    @apply left-0;
+  }
+
+  &-next {
+    @apply right-0;
+  }
+}
+
+.testimonials-container {
+  @apply w-full;
+}
+
+.testimonial {
+  @apply flex flex-col items-center text-center px-16;
+
+  &-avatar {
+    @apply w-20 h-20 rounded-full mb-6 object-cover;
+  }
+
+  &-quote {
+    @apply text-xl text-gray-900 mb-4;
+  }
+
+  &-author {
+    @apply not-italic;
+
+    .author-name {
+      @apply font-semibold text-gray-900;
+    }
+
+    .author-role {
+      @apply text-gray-600;
+    }
+  }
+}
+
+.carousel-dots {
+  @apply flex justify-center gap-2 mt-6;
+}
+
+.carousel-dot {
+  @apply w-2 h-2 rounded-full transition-colors bg-gray-300 hover:bg-gray-400;
+
+  &.active {
+    @apply bg-primary-600;
+  }
+} 

@@ -1,0 +1,37 @@
+<div class="min-h-screen flex items-center justify-center bg-gray-50">
+  <div class="max-w-md w-full space-y-8 p-8 bg-white rounded-lg shadow">
+    <div class="text-center">
+      <h2 class="text-3xl font-bold text-gray-900">Sign in</h2>
+      <p class="mt-2 text-gray-600">
+        New user?
+        <app-link to="/auth/signup" variant="primary">
+          Create an account
+        </app-link>
+      </p>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="mt-8 space-y-6">
+      <div class="flex flex-col gap-4">
+        <app-input formControlName="email" type="email" label="Email address" [error]="getError('email')" />
+
+        <app-input formControlName="password" type="password" label="Password" [error]="getError('password')" />
+      </div>
+
+      <div class="flex items-center justify-between mb-4">
+        <app-link to="/auth/forgot-password" variant="subtle" size="sm">
+          Forgot your password?
+        </app-link>
+      </div>
+
+      <app-button variant="block" type="submit" [loading]="isLoading()" [disabled]="!loginForm.valid || isLoading()">
+        Sign in
+      </app-button>
+    </form>
+
+    @if (error()) {
+    <div class="mt-4 text-sm text-red-600">
+      {{ error() }}
+    </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,15 @@
+<nav class="nav-menu" [class.collapsed]="collapsed">
+  @for (item of items; track item.path) {
+    <a
+      [routerLink]="item.path"
+      routerLinkActive="active"
+      class="nav-item"
+      [class.justify-center]="collapsed"
+    >
+      <mat-icon [class.mr-3]="!collapsed">{{ item.icon }}</mat-icon>
+      @if (!collapsed) {
+        <span class="nav-label">{{ item.label }}</span>
+      }
+    </a>
+  }
+</nav> 

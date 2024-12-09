@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="120" height="32" viewBox="0 0 120 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M16 8C16 12.4183 12.4183 16 8 16C3.58172 16 0 12.4183 0 8C0 3.58172 3.58172 0 8 0C12.4183 0 16 3.58172 16 8Z" fill="#60A5FA"/>
+  <path d="M32 24C32 28.4183 28.4183 32 24 32C19.5817 32 16 28.4183 16 24C16 19.5817 19.5817 16 24 16C28.4183 16 32 19.5817 32 24Z" fill="#93C5FD"/>
+  <path d="M16 24C16 28.4183 12.4183 32 8 32C3.58172 32 0 28.4183 0 24C0 19.5817 3.58172 16 8 16C12.4183 16 16 19.5817 16 24Z" fill="#BFDBFE"/>
+  <text x="40" y="24" font-family="Arial" font-size="20" font-weight="bold" fill="#FFFFFF">AgileFlow</text>
+</svg>

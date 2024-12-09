@@ -1,0 +1,52 @@
+.input-wrapper {
+  @apply flex flex-col gap-1.5;
+}
+
+.input-label {
+  @apply text-sm font-medium text-gray-700;
+}
+
+.input-container {
+  @apply relative;
+
+  &.has-error {
+    .input-field {
+      @apply border-red-500 focus:border-red-500 focus:ring-red-500;
+    }
+  }
+}
+
+.input-field {
+  @apply w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm
+    text-gray-900 placeholder-gray-400
+    focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500
+    disabled:bg-gray-50 disabled:text-gray-500 disabled:cursor-not-allowed;
+
+  &.has-left-icon {
+    @apply pl-10;
+  }
+
+  &.has-right-icon {
+    @apply pr-10;
+  }
+}
+
+.input-icon {
+  @apply absolute top-1/2 transform -translate-y-1/2 text-gray-400;
+  
+  &-left {
+    @apply left-3;
+  }
+  
+  &-right {
+    @apply right-3;
+  }
+}
+
+.input-error {
+  @apply text-sm text-red-600;
+}
+
+.input-hint {
+  @apply text-sm text-gray-500;
+} 

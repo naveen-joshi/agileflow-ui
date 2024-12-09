@@ -1,0 +1,291 @@
+<div class="min-h-screen bg-slate-50">
+  <!-- Header -->
+  <header class="bg-white shadow-sm border-b">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center py-4">
+        <div class="flex items-center">
+          <img src="assets/images/logo.svg" alt="AgileFlow Logo" class="h-8">
+          <div class="ml-20 text-sm font-medium text-gray-500">
+            <span class="text-primary-600">Organization Setup</span>
+            <span class="mx-2">/</span>
+            <span>{{ stepper.selectedIndex + 1 }} of 3</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main content -->
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="bg-white shadow sm:rounded-lg">
+      <div class="px-4 py-5 sm:p-6">
+        <!-- Progress bar -->
+        <div class="mb-8">
+          <div class="relative">
+            <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-primary-100">
+              <div
+                class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-primary-500"
+                [style.width]="((stepper.selectedIndex + 1) / 3 * 100) + '%'"
+              ></div>
+            </div>
+          </div>
+        </div>
+
+        <mat-stepper linear #stepper>
+          <!-- Basic Information Step -->
+          <mat-step [stepControl]="basicInfoForm">
+            <ng-template matStepLabel>Basic Information</ng-template>
+            <form [formGroup]="basicInfoForm" class="space-y-6">
+              <div>
+                <h2 class="text-lg font-medium text-gray-900">Organization Details</h2>
+                <p class="mt-1 text-sm text-gray-500">
+                  Let's start with the basic information about your organization.
+                </p>
+              </div>
+
+              <div class="space-y-4">
+                <app-input
+                  label="Organization Name"
+                  formControlName="name"
+                  [error]="basicInfoForm.get('name')?.errors?.['required'] && basicInfoForm.get('name')?.touched"
+                  errorText="Organization name is required"
+                ></app-input>
+
+                <div class="space-y-2">
+                  <label class="block text-sm font-medium text-gray-700">Industry</label>
+                  <ng-select
+                    [items]="industries"
+                    bindLabel="name"
+                    bindValue="id"
+                    placeholder="Select industry"
+                    formControlName="industry"
+                  ></ng-select>
+                </div>
+
+                <div class="space-y-2">
+                  <label class="block text-sm font-medium text-gray-700">Organization Size</label>
+                  <ng-select
+                    [items]="organizationSizes"
+                    bindLabel="name"
+                    bindValue="id"
+                    placeholder="Select size"
+                    formControlName="size"
+                  ></ng-select>
+                </div>
+
+                <div class="space-y-2">
+                  <label class="block text-sm font-medium text-gray-700">Logo</label>
+                  <div class="flex items-center space-x-4">
+                    <div
+                      class="h-24 w-24 rounded-lg border-2 border-dashed border-gray-300 flex items-center justify-center"
+                      [class.border-primary-500]="logoPreview()"
+                    >
+                      <img
+                        *ngIf="logoPreview()"
+                        [src]="logoPreview()"
+                        alt="Logo preview"
+                        class="h-full w-full object-cover rounded-lg"
+                      >
+                      <span *ngIf="!logoPreview()" class="text-gray-500">
+                        <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                    <div>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        class="hidden"
+                        #logoInput
+                        (change)="onLogoSelected($event)"
+                      >
+                      <app-button
+                        variant="secondary"
+                        type="button"
+                        (click)="logoInput.click()"
+                      >
+                        Upload Logo
+                      </app-button>
+                      <p class="mt-1 text-xs text-gray-500">PNG, JPG up to 1MB</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex justify-end">
+                <app-button
+                  variant="primary"
+                  [disabled]="!basicInfoForm.valid"
+                  (click)="next($event, stepper)"
+                >
+                  Continue
+                </app-button>
+              </div>
+            </form>
+          </mat-step>
+
+          <!-- Settings Step -->
+          <mat-step [stepControl]="settingsForm">
+            <ng-template matStepLabel>Settings</ng-template>
+            <form [formGroup]="settingsForm" class="space-y-6">
+              <div>
+                <h2 class="text-lg font-medium text-gray-900">Organization Settings</h2>
+                <p class="mt-1 text-sm text-gray-500">
+                  Configure your organization's time and date settings.
+                </p>
+              </div>
+
+              <div class="space-y-4">
+                <div class="space-y-2">
+                  <label class="block text-sm font-medium text-gray-700">Timezone</label>
+                  <ng-select
+                    [items]="timezones"
+                    bindLabel="name"
+                    bindValue="value"
+                    placeholder="Select timezone"
+                    formControlName="timezone"
+                  ></ng-select>
+                </div>
+
+                <div class="space-y-2">
+                  <label class="block text-sm font-medium text-gray-700">Date Format</label>
+                  <ng-select
+                    [items]="dateFormats"
+                    bindLabel="name"
+                    bindValue="value"
+                    placeholder="Select date format"
+                    formControlName="dateFormat"
+                  ></ng-select>
+                </div>
+
+                <div class="space-y-2">
+                  <label class="block text-sm font-medium text-gray-700">Working Days</label>
+                  <ng-select
+                    [items]="weekDays"
+                    [multiple]="true"
+                    bindLabel="name"
+                    bindValue="value"
+                    placeholder="Select working days"
+                    formControlName="workingDays"
+                  ></ng-select>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                  <app-input
+                    label="Working Hours Start"
+                    type="time"
+                    formControlName="workingHoursStart"
+                  ></app-input>
+
+                  <app-input
+                    label="Working Hours End"
+                    type="time"
+                    formControlName="workingHoursEnd"
+                  ></app-input>
+                </div>
+              </div>
+
+              <div class="flex justify-between">
+                <app-button
+                  variant="ghost"
+                  (click)="stepper.previous()"
+                >
+                  Back
+                </app-button>
+                <app-button
+                  variant="primary"
+                  [disabled]="!settingsForm.valid"
+                  (click)="next($event, stepper)"
+                >
+                  Continue
+                </app-button>
+              </div>
+            </form>
+          </mat-step>
+
+          <!-- Project Settings Step -->
+          <mat-step [stepControl]="projectSettingsForm">
+            <ng-template matStepLabel>Project Settings</ng-template>
+            <form [formGroup]="projectSettingsForm" class="space-y-6">
+              <div>
+                <h2 class="text-lg font-medium text-gray-900">Default Project Settings</h2>
+                <p class="mt-1 text-sm text-gray-500">
+                  Set up default settings for new projects in your organization.
+                </p>
+              </div>
+
+              <div class="space-y-4">
+                <div class="space-y-2">
+                  <label class="block text-sm font-medium text-gray-700">Project Methodology</label>
+                  <ng-select
+                    [items]="methodologies"
+                    bindLabel="name"
+                    bindValue="value"
+                    placeholder="Select methodology"
+                    formControlName="methodology"
+                  ></ng-select>
+                </div>
+
+                <div class="space-y-2">
+                  <label class="block text-sm font-medium text-gray-700">Estimation Type</label>
+                  <ng-select
+                    [items]="estimationTypes"
+                    bindLabel="name"
+                    bindValue="value"
+                    placeholder="Select estimation type"
+                    formControlName="estimationType"
+                  ></ng-select>
+                </div>
+
+                <div class="space-y-2" *ngIf="projectSettingsForm.get('methodology')?.value === 'scrum'">
+                  <label class="block text-sm font-medium text-gray-700">Sprint Duration (Weeks)</label>
+                  <ng-select
+                    [items]="sprintDurations"
+                    bindLabel="name"
+                    bindValue="value"
+                    placeholder="Select sprint duration"
+                    formControlName="sprintDuration"
+                  ></ng-select>
+                </div>
+
+                <div class="space-y-2">
+                  <label class="block text-sm font-medium text-gray-700">Default Board Columns</label>
+                  <ng-select
+                    [items]="boardColumns"
+                    [multiple]="true"
+                    bindLabel="name"
+                    bindValue="value"
+                    placeholder="Select board columns"
+                    formControlName="defaultColumns"
+                  ></ng-select>
+                </div>
+              </div>
+
+              <div class="flex justify-between">
+                <app-button
+                  variant="ghost"
+                  (click)="stepper.previous()"
+                >
+                  Back
+                </app-button>
+                <app-button
+                  variant="primary"
+                  [disabled]="!projectSettingsForm.valid || isSubmitting()"
+                  (click)="onSubmit()"
+                >
+                  Create Organization
+                </app-button>
+              </div>
+            </form>
+          </mat-step>
+        </mat-stepper>
+      </div>
+    </div>
+  </div>
+</div>

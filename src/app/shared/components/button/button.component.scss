@@ -1,0 +1,54 @@
+.button {
+  @apply inline-flex items-center justify-center gap-2 font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2;
+
+  &:disabled {
+    @apply opacity-50 cursor-not-allowed;
+  }
+
+  // Variants
+  &-primary {
+    @apply bg-primary-600 text-white hover:bg-primary-700 focus:ring-primary-500;
+  }
+
+  &-secondary {
+    @apply bg-gray-100 text-gray-900 hover:bg-gray-200 focus:ring-gray-500;
+  }
+
+  &-outline {
+    @apply border border-gray-300 text-gray-700 hover:bg-gray-50 focus:ring-gray-500;
+  }
+
+  &-ghost {
+    @apply text-gray-700 hover:bg-gray-100 focus:ring-gray-500;
+  }
+
+  &-danger {
+    @apply bg-red-600 text-white hover:bg-red-700 focus:ring-red-500;
+  }
+
+  // Sizes
+  &-sm {
+    @apply px-3 py-1.5 text-sm;
+  }
+
+  &-md {
+    @apply px-4 py-2;
+  }
+
+  &-lg {
+    @apply px-6 py-3 text-lg;
+  }
+
+  // Loading state
+  .button-spinner {
+    @apply text-current;
+  }
+
+  // Icon
+  .button-icon {
+    @apply -mx-0.5;
+    font-size: inherit;
+    width: 1em;
+    height: 1em;
+  }
+} 

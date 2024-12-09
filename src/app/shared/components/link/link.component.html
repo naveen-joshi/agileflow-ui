@@ -1,0 +1,24 @@
+<a
+  [routerLink]="!external ? to : null"
+  [href]="external ? to : null"
+  [target]="external ? '_blank' : null"
+  [rel]="external ? 'noopener noreferrer' : null"
+  [class]="['link', 'link-' + variant]"
+  [class.disabled]="disabled"
+>
+  @if (icon && iconPosition === 'left') {
+    <mat-icon class="link-icon">{{ icon }}</mat-icon>
+  }
+
+  <span class="link-content">
+    <ng-content />
+  </span>
+
+  @if (icon && iconPosition === 'right') {
+    <mat-icon class="link-icon">{{ icon }}</mat-icon>
+  }
+
+  @if (external) {
+    <mat-icon class="external-icon">open_in_new</mat-icon>
+  }
+</a> 

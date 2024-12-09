@@ -1,0 +1,244 @@
+:host {
+  display: block;
+  overflow-x: hidden;
+}
+
+.hero-gradient {
+  @apply bg-gradient-to-br from-primary-900 via-primary-800 to-primary-700;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    @apply absolute inset-0 bg-[url('/assets/images/grid-pattern.svg')] opacity-10;
+  }
+}
+
+.card {
+  @apply rounded-xl transition-all duration-300 hover:shadow-xl relative overflow-hidden;
+  
+  &::before {
+    content: '';
+    @apply absolute inset-0 opacity-0 transition-opacity duration-300;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, transparent 70%);
+  }
+  
+  &:hover::before {
+    @apply opacity-100;
+  }
+}
+
+.feature-icon {
+  @apply transition-transform duration-300;
+  
+  &:hover {
+    @apply transform scale-110;
+  }
+}
+
+.pricing-card {
+  @apply transition-all duration-300;
+  
+  &:hover {
+    @apply transform -translate-y-2;
+  }
+}
+
+.btn-primary {
+  @apply inline-flex items-center justify-center px-6 py-3 rounded-lg font-semibold transition-all duration-300;
+  
+  &:hover {
+    @apply transform scale-105 shadow-lg;
+  }
+}
+
+.btn-secondary {
+  @apply inline-flex items-center justify-center px-6 py-3 rounded-lg font-semibold transition-all duration-300;
+  
+  &:hover {
+    @apply transform scale-105;
+  }
+}
+
+section {
+  scroll-margin-top: 4rem;
+}
+
+.container {
+  @apply max-w-7xl;
+}
+
+// Feature Cards with enhanced animations
+.feature-card {
+  @apply p-6 rounded-xl bg-white transition-all duration-500;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transform: perspective(1000px) rotateX(0) rotateY(0);
+  
+  &:hover {
+    transform: perspective(1000px) rotateX(2deg) rotateY(2deg) translateY(-5px) scale(1.02);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+      0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+    .feature-icon-wrapper {
+      background: linear-gradient(
+        135deg,
+        rgba(var(--color-primary), 0.2),
+        rgba(var(--color-primary), 0.3)
+      );
+    }
+
+    .feature-icon {
+      transform: scale(1.1) rotate(5deg);
+      color: rgb(var(--color-primary));
+    }
+
+    .feature-icon-glow {
+      opacity: 1;
+    }
+
+    .feature-icon-rings {
+      opacity: 1;
+      transform: scale(1.2);
+    }
+
+    .feature-hover-content {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+.feature-icon-wrapper {
+  @apply w-12 h-12 rounded-lg mb-4 flex items-center justify-center relative overflow-hidden;
+  background: linear-gradient(
+    135deg,
+    rgba(var(--color-primary), 0.1),
+    rgba(var(--color-primary), 0.2)
+  );
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.feature-icon {
+  @apply text-gray-600 transition-all duration-500;
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
+  z-index: 2;
+}
+
+.feature-icon-glow {
+  @apply absolute inset-0 opacity-0 transition-opacity duration-500;
+  background: radial-gradient(
+    circle at center,
+    rgba(var(--color-primary), 0.2) 0%,
+    transparent 70%
+  );
+}
+
+.feature-icon-rings {
+  @apply absolute inset-0 opacity-0 transition-all duration-500;
+  background: repeating-radial-gradient(
+    circle at center,
+    rgba(var(--color-primary), 0.1) 0%,
+    rgba(var(--color-primary), 0.1) 2px,
+    transparent 2px,
+    transparent 4px
+  );
+}
+
+.feature-hover-content {
+  @apply mt-4 flex items-center gap-2 opacity-0 transform translate-y-2 transition-all duration-300;
+}
+
+// Parallax effect
+.parallax-section {
+  @apply relative overflow-hidden;
+  perspective: 1000px;
+  
+  .parallax-bg {
+    @apply absolute inset-0 -z-10;
+    transform: translateZ(-10px) scale(2);
+  }
+  
+  .parallax-content {
+    @apply relative z-10;
+    transform-style: preserve-3d;
+  }
+}
+
+// Parallax containers
+.parallax-container {
+  @apply relative overflow-hidden;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.parallax-element {
+  @apply transition-transform duration-300 ease-out will-change-transform;
+  
+  &.slow {
+    transition-duration: 450ms;
+  }
+  
+  &.fast {
+    transition-duration: 200ms;
+  }
+}
+
+// Enhanced background patterns
+.pattern-container {
+  @apply absolute opacity-0 transition-all duration-700;
+  
+  &.visible {
+    @apply opacity-10;
+    animation: float 20s ease-in-out infinite;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) rotate(0);
+  }
+  50% {
+    transform: translateY(-20px) rotate(5deg);
+  }
+}
+
+// Scroll reveal animations
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  &.delay-100 {
+    transition-delay: 100ms;
+  }
+  
+  &.delay-200 {
+    transition-delay: 200ms;
+  }
+}
+
+// Enhanced feature cards with depth
+.feature-card {
+  // ... existing styles ...
+  
+  &:hover {
+    // ... existing hover styles ...
+    
+    .parallax-content {
+      transform: translateZ(50px);
+    }
+  }
+  
+  .parallax-content {
+    @apply transition-transform duration-500;
+    transform: translateZ(0);
+    transform-style: preserve-3d;
+  }
+}

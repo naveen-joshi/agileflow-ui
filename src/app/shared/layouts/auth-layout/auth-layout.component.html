@@ -1,0 +1,23 @@
+<div class="min-h-screen bg-slate-50 flex">
+  <!-- Left side with pattern -->
+  <div class="hidden lg:flex lg:w-1/2 bg-primary-600 relative overflow-hidden">
+    <div class="absolute inset-0 auth-pattern"></div>
+    <div class="relative z-10 flex flex-col justify-center px-24 text-white">
+      <img src="assets/images/logo-light.svg" alt="AgileFlow Logo" class="h-12 mb-8">
+      <h1 class="text-4xl font-bold mb-4">{{ title }}</h1>
+      <p class="text-lg text-white/80">{{ subtitle }}</p>
+    </div>
+  </div>
+
+  <!-- Right side with content -->
+  <div class="w-full lg:w-1/2 flex items-center justify-center p-8">
+    <div class="w-full max-w-md">
+      <!-- Mobile logo -->
+      <div class="lg:hidden mb-8 text-center">
+        <img src="assets/images/logo.svg" alt="AgileFlow Logo" class="h-10 mx-auto">
+      </div>
+      
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>

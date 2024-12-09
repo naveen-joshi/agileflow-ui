@@ -1,0 +1,107 @@
+<div class="h-screen flex flex-col" (pan)="onPan($event)" (panend)="onPanEnd($event)">
+  <header class="h-16 bg-white border-b flex items-center px-4 shrink-0">
+    <button mat-icon-button (click)="toggleSidenav()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    
+    <h1 class="text-xl font-semibold text-gray-800 ml-4">Agileflow</h1>
+    
+    <div class="flex-1 flex items-center justify-end gap-4">
+      <app-search
+        class="w-96"
+        placeholder="Search..."
+        (search)="onSearch($event)"
+      />
+      
+      <button 
+        mat-icon-button 
+        class="theme-toggle"
+        [class.dark]="isDarkTheme()"
+        (click)="toggleTheme()"
+        [attr.aria-label]="isDarkTheme() ? 'Switch to light mode' : 'Switch to dark mode'"
+      >
+        <mat-icon>{{ isDarkTheme() ? 'light_mode' : 'dark_mode' }}</mat-icon>
+      </button>
+
+      <app-notifications-menu
+        [notifications]="notifications()"
+        [unreadCount]="unreadCount()"
+        (markAllAsRead)="markAllAsRead()"
+        (onNotificationClick)="onNotificationClick($event)"
+      />
+
+      <app-dropdown-menu 
+        [(isOpen)]="userMenuOpen"
+        position="bottom-end"
+        minWidth="240px"
+        id="user-menu"
+      >
+        <button trigger mat-icon-button>
+          <img
+            [src]="currentUser()?.avatar || 'assets/images/default-avatar.png'"
+            alt="User avatar"
+            class="w-8 h-8 rounded-full object-cover"
+          />
+        </button>
+
+        <div class="user-info p-4 border-b border-gray-200">
+          <div class="font-medium text-gray-900">{{ currentUser()?.name }}</div>
+          <div class="text-sm text-gray-500">{{ currentUser()?.email }}</div>
+        </div>
+
+        <app-dropdown-item icon="account_circle" link="/profile">
+          Profile
+        </app-dropdown-item>
+        
+        <app-dropdown-item icon="settings" link="/settings">
+          Settings
+        </app-dropdown-item>
+        
+        <app-dropdown-item icon="logout" (click)="onLogout()">
+          Sign out
+        </app-dropdown-item>
+      </app-dropdown-menu>
+    </div>
+  </header>
+
+  <mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #sidenav mode="side" [opened]="!isMobile()" class="sidenav" [class.expanded]="sidenavExpanded()">
+      <div class="sidenav-content">
+        <div class="logo-section">
+          <img [src]="activeConfig().logoPath" [alt]="activeConfig().name" class="h-8 w-8">
+          <span class="logo-text" *ngIf="sidenavExpanded()">{{ activeConfig().name }}</span>
+        </div>
+        
+        <nav class="nav-menu">
+          <ng-container *ngFor="let item of activeConfig().navigationItems">
+            <a [routerLink]="item.path" routerLinkActive="active" class="nav-item">
+              <mat-icon>{{ item.icon }}</mat-icon>
+              <span class="nav-label" *ngIf="sidenavExpanded()">{{ item.label }}</span>
+            </a>
+          </ng-container>
+        </nav>
+      </div>
+    </mat-sidenav>
+
+    <mat-sidenav-content [class.sidenav-collapsed]="!sidenavExpanded()">
+      <div class="breadcrumb">
+        <div class="flex items-center gap-2 text-sm">
+          @for (crumb of breadcrumbs(); track crumb.path) {
+            <ng-container>
+              @if (!$last) {
+                <a [routerLink]="crumb.path">{{ crumb.label }}</a>
+                <mat-icon>chevron_right</mat-icon>
+              } @else {
+                <span>{{ crumb.label }}</span>
+              }
+            </ng-container>
+          }
+        </div>
+      </div>
+
+      <div class="content-area">
+        <router-outlet />
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
